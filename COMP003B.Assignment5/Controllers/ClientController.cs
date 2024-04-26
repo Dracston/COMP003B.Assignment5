@@ -59,7 +59,7 @@ namespace COMP003B.Assignment5.Controllers
         [HttpPut]
         public ActionResult<Client> UpdateClient(int id, Client updatedClient)
         {
-
+            return null;
         }
     
     }
