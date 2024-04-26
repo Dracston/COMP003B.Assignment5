@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using COMP003B.Assignment5.Models;
+﻿using COMP003B.Assignment5.Models;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace COMP003B.Assignment5.Controllers
 {
