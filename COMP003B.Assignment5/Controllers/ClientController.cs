@@ -29,9 +29,10 @@ namespace COMP003B.Assignment5.Controllers
         {
             return _clients;
         }
+
         //Get by Id(read) : api/clients/5
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<Client>> GetClientsById(int id)
+        public ActionResult<Client> GetClientsById(int id)
         {
             var client = _clients.FirstOrDefault(c => c.Id == id);
             if (client == null)
@@ -39,7 +40,7 @@ namespace COMP003B.Assignment5.Controllers
                 return NotFound();
             }
             //return client;
-            return _clients;
+            return client;
         }
 
         //HttpPost
@@ -59,7 +60,38 @@ namespace COMP003B.Assignment5.Controllers
         [HttpPut]
         public ActionResult<Client> UpdateClient(int id, Client updatedClient)
         {
-            return null;
+            //Find client by Id
+            var client = _clients.Find(c => c.Id == id);
+
+            //Return Bad Request if not found
+            if(client == null)
+            {
+                return BadRequest();
+            }
+
+            //Update client listing
+            client.Name = updatedClient.Name;
+            client.Material = updatedClient.Material;
+            client.Size = updatedClient.Size;
+            client.Engraving = updatedClient.Engraving;
+            return NoContent();
+        }
+
+        //Delete: api/client
+        [HttpDelete]
+        public ActionResult DeleteClient(int id)
+        {
+            //Find by Id
+            var client = _clients.Find(c => c.Id == id);
+            //Return not found if null
+            if(client == null)
+            {
+                return NotFound();
+            }
+
+            //Remove from list
+            _clients.Remove(client);
+            return NoContent();
         }
     
     }
