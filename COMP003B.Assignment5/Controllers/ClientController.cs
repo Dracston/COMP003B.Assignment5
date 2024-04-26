@@ -14,12 +14,31 @@ namespace COMP003B.Assignment5.Controllers
         //Add pre-filled options to the list
         public ClientController()
         {
-            _clients.Add(new Client { });
+            _clients.Add(new Client { Id=1, Name = "Ted", Material = "Silver", Engraving="None", Size= 13});
+            _clients.Add(new Client { Id=2, Name = "Laurence", Material = "Silver", Engraving = "A sunflower", Size = 12 });
+            _clients.Add(new Client { Id=3, Name = "Daniel", Material = "Gold", Engraving = "Dance Forever", Size = 7 });
+            _clients.Add(new Client { Id=4, Name = "Cassandra", Material = "Silver", Engraving = "None", Size = 8 });
+            _clients.Add(new Client { Id=5, Name = "Danny", Material = "Gold", Engraving = "The sun", Size = 11 });
         }
-        
-        public IActionResult Index()
+
+        //CRUD Operations
+
+        //Get All (read): api/clients
+        [HttpGet]
+        public ActionResult<IEnumerable<Client>> GetAllClients()
         {
-            return View();
+            return _clients;
+        }
+        //Get by Id (read): api/clients/5
+        [HttpGet("{id}")]
+        public ActionResult<IEnumerable<Client>> GetClientsById(int id)
+        {
+            var client = _clients.FirstOrDefault(c=>c.Id == id);
+            if (client == null)
+            {
+                return NotFound();
+            }
+            return client;
         }
     }
 }
